@@ -26,7 +26,6 @@ public class VendorMedia {
     @JoinColumn(name = "vendor_id", nullable = false, foreignKey = @ForeignKey(name = "fk_media_vendor"))
     private Vendor vendor;
 
-    @Enumerated(EnumType.STRING)
     @Column(name = "media_type", length = 50, nullable = false)
     private String mediaType;
 
