@@ -43,6 +43,10 @@ public class Vendor {
     @Column(name = "email", length = 100)
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status", length = 20)
+    private VendorStatus vendorStatus;
+
     @Column(name = "capacity_min")
     private Integer capacityMin;
 
