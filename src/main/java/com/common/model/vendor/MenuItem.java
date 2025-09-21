@@ -7,30 +7,35 @@ import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.type.SqlTypes;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-
+@Entity
+@Table(name = "menu_items")
 @Getter
 @Setter
-@Entity
-@Table(name = "vendors")
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Vendor {
+public class MenuItem {
 
     @Id
     @Column(columnDefinition = "CHAR(36)")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id;
 
-    @Column(name = "user_id", nullable = false, columnDefinition = "CHAR(36)")
-    private UUID userId;  // Reference to user-service DB
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "vendor_id", nullable = false)
+    private Vendor vendor;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "vendor_type", length = 20)
-    private VendorType vendorType;
+    @Column(name = "category", length = 100, nullable = false)
+    private MenuCategory category;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "cuisine_type", length = 100, nullable = false)
+    private CuisineType cuisineType;
 
     @Column(name = "name", nullable = false, length = 255)
     private String name;
@@ -38,24 +43,11 @@ public class Vendor {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
-    @Column(name = "logo_url", length = 500)
-    private String logoUrl;
+    @Column(name = "price", precision = 10, scale = 2)
+    private BigDecimal price;
 
-    @Column(name = "phone", length = 20)
-    private String phone;
-
-    @Column(name = "email", length = 100)
-    private String email;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "status", length = 20)
-    private VendorStatus vendorStatus;
-
-    @Column(name = "capacity_min")
-    private Integer capacityMin;
-
-    @Column(name = "capacity_max")
-    private Integer capacityMax;
+    @Column(name = "is_available", nullable = false)
+    private Boolean isAvailable = true;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
