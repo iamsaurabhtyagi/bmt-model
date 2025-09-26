@@ -1,4 +1,4 @@
-package com.common.model;
+package com.common.model.config;
 
 import jakarta.persistence.AttributeConverter;
 import jakarta.persistence.Converter;
