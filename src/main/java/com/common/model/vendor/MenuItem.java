@@ -47,7 +47,7 @@ public class MenuItem {
     private BigDecimal price;
 
     @Column(name = "is_available", nullable = false)
-    private Boolean isAvailable = true;
+    private boolean available = true;
 
     @CreationTimestamp
     @Column(name = "created_at", updatable = false)
